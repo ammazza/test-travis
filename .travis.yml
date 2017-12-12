@@ -1,15 +1,20 @@
 language: clojure
 jdk: oraclejdk8
 
+env:
+  global:
+  - secure: R9xI7T4JOM1iMi8i5QJiNURIK+SgdcO+D4fWmqK1P0wmEZb4nagPgyhvq785gUyct3q3DatseqrE+ZqyU36TGF2SeeG7UZURE+Rq/N/mEjo8u8Yj18VCEEFSFkLKRMjK0uGo15nD18lfNBvL36vAEaraUyyodhjk2JASp7M02+qM8k8xcGRxdo+CULPDRij/ZaUUrN5iBBgOP0mceYoHTybzUq0Ii2gcw0plsplCCERDZq0+SC03h8hNzwbtC8dfSWc6a+KouELFEgCsYF7E14/tKuCYFMX0UtyIJ/vibs9lgaonC9cUeKQj9DYyMMU2p112hj4oW39BKeguxuR+6GQHI97NXp84TDKLlMl6SFxrHyPXkNQxS4adVoU0qyHJiNUW9mc8qiBdflJ6Q4B25K6bWOjcxQZYPFu4Yk6mJDA+yo0cqAeH9ou+5Hr6/iWlFneTZtoCOPNbdm5VIGXfS0GgiU9jYoTOc+Y1i0VBJ+skZw6fmqavWEhxrdR9lcxVD9eUbeaby7aifO2RUHaES5eqUxVKLGSBMCu/B/wI5l8lGc2sjlNSnedM6jIZq8y+U9ZhtPqSbdQwfbd4CBPKRh+arpk6HFSj6nKUkdwu9kBUeE9Bkt6Bzx8/sSH2TBaK1WJ65T7u/elfu9COjLUUeEI13oeQEk2RSs0uCJm1uzk=
+  - secure: n3fubSF39813zmhnct6gn4ScD4vsypPz3kz84hEXp33hQ3EMyrAnBJooASWbWULzmtSR7Q3z6vhcot4r/VFOBf/iczJIU+a3WC8mtx9A4PxxWpNT97tGLMHx2MNZ70+RtnRAeiNvO9/xiPwxf4xTox9ikG58YwzmjzyMD/F/Ugv87IOkhkFYnaEo5VrWgmHNlvzkb6cl56Igi7fYKwT/qZXHXiVyiqidrFi2MsGac6OYz9F8ml68/pO2DsRcUWoAjhXx8SzE7Krd2cxzUKFRPhdEwJ3mnZxf2GikKbJnBpCzBNiK6PQTzv0O1cMLz+K0Y69o3bOP9EPl/7v5enxlOlf/39+oQYFUTOHuQvtJg9wt1OACC9hGuLX3anYX0k1GUigG92py6ihEx2FZDGQPY2UKevhjXoMTuoXlzfNOIkxxgwGhE9tANU7r9U7j4Q/0LozuKU9VWdoX9seIz6nT9C9EYMWppknn5pwqFoZp8ZtRkDy2sQoCisV7LWmX2PmpL4n+2GQL22dGDcKL41MK8UfRFaR+eePMCFeJibMi8f6JQ1+OBsqiC/2F25q4olTzCr3QSpt6AmAJbuSDREy8eQuuwZrNiPdWrRMKdGU2PVHX7uEUJV/plQ0+3TQqKvaLx6pAujRpiGvoCI5m1ZAZLuYsXcPaJhadH6mJ80NjkbU=
+
 jobs:
   include:
-    - stage: install
-      script: lein deps
-    - stage: compile
-      script: lein compile
-    - stage: test
-      script: lein test
-    - stage: publish
-      script:
-      - lein deploy
-      - lein deploy-uberjar
+  - stage: install
+    script: lein deps
+  - stage: compile
+    script: lein compile
+  - stage: test
+    script: lein test
+  - stage: publish
+    script:
+    - lein deploy
+    - lein deploy-uberjar
