@@ -12,10 +12,10 @@ env:
 jobs:
   include:
   - stage: test
-    if: branch IN (master, devel)
+    if: branch IN (master, devel) OR branch =~ ^version-
     script: lein test
   - stage: publish
-    if: branch IN (master, devel)
+    if: branch IN (master, devel) OR branch =~ ^version-
     script:
     - lein deploy
     - lein deploy-uberjar
