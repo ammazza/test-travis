@@ -1,8 +1,11 @@
 language: clojure
-jdk:
-  - oraclejdk8
+jdk: oraclejdk8
 branches:
   only:
     - master
- 
+
+jobs:
+  include:
+    - stage: test
+      script: lein test
 
