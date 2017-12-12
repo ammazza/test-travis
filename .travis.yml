@@ -3,6 +3,13 @@ jdk: oraclejdk8
 
 jobs:
   include:
-    - stage: test
+    - stage: install
+      script: lein deps
+    - stage: compile
       script: lein compile
-
+    - stage: test
+      script: lein test
+    - stage: publish
+      script:
+      - lein deploy
+      - lein deploy-uberjar
