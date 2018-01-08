@@ -19,7 +19,7 @@ jobs:
     if: branch IN (master, devel) OR branch =~ ^version-
     script:
     - export INGEST_VERSION=$(lein pom &> /dev/null && mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)
-    - echo "I'm testing..."
+    - echo "I'm testing Ingestor "$INGEST_VERSION
   # - stage: publish
   #   if: branch IN (master, devel) OR branch =~ ^version-
   #   script:
