@@ -36,6 +36,7 @@ before_script:
 # Pipeline stages.
 jobs:
   include:
+  # Vars defined in a stage are not available in the others.
   # - stage: prepare
   #   script:
   #   - export INGEST_VERSION=$(lein pom &> /dev/null && mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)    
@@ -44,6 +45,6 @@ jobs:
     script:
     - echo "I'm testing Ingestor "$INGEST_VERSION
   - stage: publish
-    if: branch IN (master, devel) OR branch =~ ^version-
+    if: branch = master AND env(INGEST_VERSION) =~ -SNAPSHOT$
     script:
     - echo "I'm publishing Ingestor "$INGEST_VERSION
