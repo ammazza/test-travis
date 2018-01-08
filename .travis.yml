@@ -18,8 +18,9 @@ jobs:
   - stage: test
     if: branch IN (master, devel) OR branch =~ ^version-
     script:
+    - lein pom &> /dev/null && mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec
     - echo "I'm testing..."
-  - stage: publish
-    if: branch IN (master, devel) OR branch =~ ^version-
-    script:
-    - echo "I'm publishing..."
+  # - stage: publish
+  #   if: branch IN (master, devel) OR branch =~ ^version-
+  #   script:
+  #   - echo "I'm publishing..."
