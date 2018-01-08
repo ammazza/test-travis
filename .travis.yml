@@ -29,6 +29,7 @@ jdk:
 #
 ##############################################################################
 
+# This section gets executed before the stages script sections.
 before_script:
 - export INGEST_VERSION=$(lein pom &> /dev/null && mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)    
 
@@ -42,7 +43,7 @@ jobs:
     if: branch IN (master, devel) OR branch =~ ^version-
     script:
     - echo "I'm testing Ingestor "$INGEST_VERSION
-  # - stage: publish
-  #   if: branch IN (master, devel) OR branch =~ ^version-
-  #   script:
-  #   - echo "I'm publishing..."
+  - stage: publish
+    if: branch IN (master, devel) OR branch =~ ^version-
+    script:
+    - echo "I'm publishing Ingestor "$INGEST_VERSION
