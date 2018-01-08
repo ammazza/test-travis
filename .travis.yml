@@ -12,13 +12,33 @@ jdk:
 # - test
 # - publish
 
+
+##############################################################################
+# Desired workflow:
+#
+# Test:
+# - All commits! (Add my cloned version as additional origin to secure online daily work).
+#
+# Publish:
+# From master:
+# - all commits with snapshot version
+# - non-snapshots if they have a corresponding version tag
+#
+# From version branch:
+# - commits with a corresponding version-patch# tag
+#
+##############################################################################
+
+
 # Pipeline stages.
 jobs:
   include:
+  - stage: prepare
+    script:
+    - export INGEST_VERSION=$(lein pom &> /dev/null && mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)    
   - stage: test
     if: branch IN (master, devel) OR branch =~ ^version-
     script:
-    - export INGEST_VERSION=$(lein pom &> /dev/null && mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)
     - echo "I'm testing Ingestor "$INGEST_VERSION
   # - stage: publish
   #   if: branch IN (master, devel) OR branch =~ ^version-
