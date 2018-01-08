@@ -29,13 +29,15 @@ jdk:
 #
 ##############################################################################
 
+before_script:
+- export INGEST_VERSION=$(lein pom &> /dev/null && mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)    
 
 # Pipeline stages.
 jobs:
   include:
-  - stage: prepare
-    script:
-    - export INGEST_VERSION=$(lein pom &> /dev/null && mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)    
+  # - stage: prepare
+  #   script:
+  #   - export INGEST_VERSION=$(lein pom &> /dev/null && mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)    
   - stage: test
     if: branch IN (master, devel) OR branch =~ ^version-
     script:
