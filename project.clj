@@ -1,5 +1,5 @@
-;; (defproject sh.serene/test-travis "0.1.0-SNAPSHOT"  
-(defproject sh.serene/test-travis "0.1.0"  
+(defproject sh.serene/test-travis "0.1.0-SNAPSHOT"  
+;; (defproject sh.serene/test-travis "0.1.0"  
   :description "Just a test project..."
   :url "http://serene.sh"
   :license {:name "Eclipse Public License"
