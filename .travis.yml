@@ -45,6 +45,6 @@ jobs:
     script:
     - echo "I'm testing Ingestor "$INGEST_VERSION
   - stage: publish
-    if: branch = master AND env(INGEST_VERSION) = 0.1.0-SNAPSHOT
+    if: branch = master
     script:
     - echo "I'm publishing Ingestor "$INGEST_VERSION
