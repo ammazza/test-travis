@@ -7,6 +7,8 @@ jdk:
 #   global:
 #   - var1
 #   - var2
+env:
+  - INGEST_VERSION: 0.1.0-SNAPSHOT
 
 # stages:
 # - test
@@ -30,8 +32,8 @@ jdk:
 ##############################################################################
 
 # This section gets executed before the stages script sections.
-before_script:
-- export INGEST_VERSION=$(lein pom &> /dev/null && mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)    
+# before_script:
+# - export INGEST_VERSION=$(lein pom &> /dev/null && mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)    
 
 # Pipeline stages.
 jobs:
@@ -45,6 +47,6 @@ jobs:
     script:
     - echo "I'm testing Ingestor "$INGEST_VERSION
   - stage: publish
-    if: branch = master AND env(INGEST_VERSION) =~ ^0.1.0-SNAPSHOT$
+    if: env(INGEST_VERSION) =~ ^0.1.0-SNAPSHOT$
     script:
     - echo "I'm publishing Ingestor |"$INGEST_VERSION"|"
