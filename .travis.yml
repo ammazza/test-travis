@@ -51,6 +51,7 @@ jobs:
     script:
     - echo "I'm testing Ingestor "$INGEST_VERSION
   - stage: publish
-    if: env(INGEST_VERSION) =~ ^0.1.0-SNAPSHOT$
+    #if: env(INGEST_VERSION) =~ ^0.1.0-SNAPSHOT$
     script:
     - echo "I'm publishing Ingestor |"$INGEST_VERSION"|"
+    - echo "And the tag is |"$TRAVIS_TAG"|"
