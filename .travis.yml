@@ -7,8 +7,12 @@ jdk:
 #   global:
 #   - var1
 #   - var2
+
+# env just tranlates to bash export... can we put a script?
+# Setting environment variables from .travis.yml
+# $ export INGEST_VERSION=0.1.0-SNAPSHOT
 env:
-  - INGEST_VERSION: 0.1.0-SNAPSHOT
+  - INGEST_VERSION: $(lein pom &> /dev/null && mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)
 
 # stages:
 # - test
