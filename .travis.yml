@@ -2,22 +2,8 @@ language: clojure
 jdk:
   - oraclejdk8
 
-# Environment variables (e.g. encrypted credentials).
-# env:
-#   global:
-#   - var1
-#   - var2
-
-# env just tranlates to bash export... can we put a script?
-# Setting environment variables from .travis.yml
-# $ export INGEST_VERSION=0.1.0-SNAPSHOT
 env:
   - INGEST_VERSION: $(lein pom &> /dev/null && mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)
-
-# stages:
-# - test
-# - publish
-
 
 ##############################################################################
 # Desired workflow:
@@ -27,7 +13,7 @@ env:
 #
 # Publish:
 # From master:
-# - all commits with snapshot version
+# - all commits with snapshot version (and no tag)
 # - non-snapshots if they have a corresponding version tag
 #
 # From version branch:
@@ -35,17 +21,9 @@ env:
 #
 ##############################################################################
 
-# This section gets executed before the stages script sections.
-# before_script:
-# - export INGEST_VERSION=$(lein pom &> /dev/null && mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)    
-
 # Pipeline stages.
 jobs:
   include:
-  # Vars defined in a stage are not available in the others.
-  # - stage: prepare
-  #   script:
-  #   - export INGEST_VERSION=$(lein pom &> /dev/null && mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)    
   - stage: test
     #if: branch IN (master, devel) OR branch =~ ^version-
     script:
@@ -53,5 +31,12 @@ jobs:
   - stage: publish
     #if: env(INGEST_VERSION) =~ ^0.1.0-SNAPSHOT$
     script:
-    - echo "I'm publishing Ingestor |"$INGEST_VERSION"|"
-    - echo "And the tag is |"$TRAVIS_TAG"|"
+    - if [[ $INGEST_VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+-SNAPSHOT$ ]] && [[ $TRAVIS_TAG = "" ]] ; then echo "I'm publishing Ingestor |"$INGEST_VERSION"|"; else exit 1; fi
+    # - echo "I'm publishing Ingestor |"$INGEST_VERSION"|"
+    # - echo "And the tag is |"$TRAVIS_TAG"|"
+
+
+# Snapshot deploy.
+#gg="0.0.1-SNAPSHOT"; TRAVIS_TAG=""; if [[ $gg =~ ^[0-9]+\.[0-9]+\.[0-9]+-SNAPSHOT$ ]] && [[ $TRAVIS_TAG = "" ]] ; then echo $gg; else echo "no"; fi
+
+
