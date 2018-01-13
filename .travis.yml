@@ -2,9 +2,6 @@ language: clojure
 jdk:
   - oraclejdk8
 
-env:
-  - INGEST_VERSION: $(lein pom &> /dev/null && mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)
-
 ##############################################################################
 # Desired workflow:
 #
@@ -27,11 +24,14 @@ jobs:
   - stage: test
     #if: branch IN (master, devel) OR branch =~ ^version-
     script:
-    - echo "I'm testing Ingestor "$INGEST_VERSION
+    - export INGEST_VERSION=$(lein pom &> /dev/null && mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)
+    - export INGEST_TAG=$(git describe --tags)
+    - echo "I'm testing Ingestor Version |"$INGEST_VERSION"| - Tag |"$INGEST_TAG"|"
   - stage: publish
     #if: env(INGEST_VERSION) =~ ^0.1.0-SNAPSHOT$
     script:
     # - if [[ $INGEST_VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+-SNAPSHOT$ ]] && [[ $TRAVIS_TAG = "" ]] ; then echo "I'm publishing Ingestor Version |"$INGEST_VERSION"| - Tag |"$TRAVIS_TAG"|"; else echo "CONFLICT in publishing Ingestor Version |"$INGEST_VERSION"| - Tag |"$TRAVIS_TAG"|"; exit 1; fi
+    - export INGEST_VERSION=$(lein pom &> /dev/null && mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)
     - export INGEST_TAG=$(git describe --tags)
     - if [[ $INGEST_VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+-SNAPSHOT$ ]] && [[ $INGEST_TAG = "" ]] ; then
         echo "I'm publishing Ingestor Version |"$INGEST_VERSION"| - Tag |"$INGEST_TAG"|";
