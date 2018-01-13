@@ -29,6 +29,7 @@ jobs:
   include:
   - stage: test
     #if: branch IN (master, devel) OR branch =~ ^version-
+    if: env(INGEST_VERSION) =~ ^0.1.0-SNAPSHOT$
     script:
     - echo "I'm testing Ingestor Version |"$INGEST_VERSION"| - Tag |"$INGEST_TAG"|"
   - stage: publish
