@@ -31,12 +31,14 @@ jobs:
   - stage: publish
     #if: env(INGEST_VERSION) =~ ^0.1.0-SNAPSHOT$
     script:
-    - if [[ $INGEST_VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+-SNAPSHOT$ ]] && [[ $TRAVIS_TAG = "" ]] ; then echo "I'm publishing Ingestor: Version |"$INGEST_VERSION"| - Tag |"$TRAVIS_TAG"|"; else echo "CONFLICT in publishing Ingestor! Version |"$INGEST_VERSION"| - Tag |"$TRAVIS_TAG"|"; exit 1; fi
+    - if [[ $INGEST_VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+-SNAPSHOT$ ]] && [[ $TRAVIS_TAG = "" ]] ; then echo "I'm publishing Ingestor Version |"$INGEST_VERSION"| - Tag |"$TRAVIS_TAG"|"; else echo "CONFLICT in publishing Ingestor Version |"$INGEST_VERSION"| - Tag |"$TRAVIS_TAG"|"; exit 1; fi
     # - echo "I'm publishing Ingestor |"$INGEST_VERSION"|"
     # - echo "And the tag is |"$TRAVIS_TAG"|"
 
 
 # Snapshot deploy.
 #gg="0.0.1-SNAPSHOT"; TRAVIS_TAG=""; if [[ $gg =~ ^[0-9]+\.[0-9]+\.[0-9]+-SNAPSHOT$ ]] && [[ $TRAVIS_TAG = "" ]] ; then echo $gg; else echo "no"; fi
+#INGEST_VERSION="0.0.1-SNAPSHOT"; TRAVIS_TAG=""; if [[ $INGEST_VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+-SNAPSHOT$ ]] && [[ $TRAVIS_TAG = "" ]] ; then echo "I'm publishing Ingestor: Version |"$INGEST_VERSION"| - Tag |"$TRAVIS_TAG"|"; else echo "CONFLICT in publishing Ingestor! Version |"$INGEST_VERSION"| - Tag |"$TRAVIS_TAG"|"; exit 1; fi
+#INGEST_VERSION="0.0.1-SNAPSHOT"; TRAVIS_TAG=""; if [[ $INGEST_VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+-SNAPSHOT$ ]] && [[ $TRAVIS_TAG = "" ]] ; then echo "I'm publishing Ingestor Version $INGEST_VERSION - Tag $TRAVIS_TAG"; else echo "CONFLICT in publishing Ingestor Version $INGEST_VERSION - Tag $TRAVIS_TAG"; exit 1; fi
 
 
