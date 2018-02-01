@@ -35,7 +35,7 @@ jobs:
     #if: env(INGEST_VERSION) =~ ^0.1.0-SNAPSHOT$
     script:
     # - if [[ $INGEST_VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+-SNAPSHOT$ ]] && [[ $TRAVIS_TAG = "" ]] ; then echo "I'm publishing Ingestor Version |"$INGEST_VERSION"| - Tag |"$TRAVIS_TAG"|"; else echo "CONFLICT in publishing Ingestor Version |"$INGEST_VERSION"| - Tag |"$TRAVIS_TAG"|"; exit 1; fi
-    - if [[ $INGEST_VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+-SNAPSHOT$ ]] && [[ $INGEST_TAG = "" ]] ; then
+    - if [[ $INGEST_VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+-SNAPSHOT$ ]] && [[ ! $INGEST_TAG =~ ^stellar-ingest-[0-9]+\.[0-9]+\.[0-9]$ ]] ; then
         echo "I'm publishing Ingestor Version |"$INGEST_VERSION"| - Tag |"$INGEST_TAG"|";
       else
         echo "CONFLICT in publishing Ingestor Version |"$INGEST_VERSION"| - Tag |"$INGEST_TAG"|"; exit 1;
