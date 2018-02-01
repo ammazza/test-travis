@@ -4,8 +4,9 @@ jdk:
   - oraclejdk8
 
 env:
-  - INGEST_VERSION: $(lein pom &> /dev/null && mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)
-  - INGEST_TAG: $(git describe --tags)
+  global:
+    - INGEST_VERSION: $(lein pom &> /dev/null && mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)
+    - INGEST_TAG: $(git describe --tags)
 
 ##############################################################################
 # Desired workflow:
