@@ -5,7 +5,10 @@ jdk:
 
 env:
   global:
-    - INGEST_VERSION: $(lein pom &> /dev/null && mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)
+    - INGEST_VERSION: $(lein pom &> /dev/null && \
+                        mvn -q -Dexec.executable="echo" \
+                               -Dexec.args='${project.version}' \
+                               --non-recursive exec:exec)
     - INGEST_TAG: $(git describe --tags)
 
 ##############################################################################
